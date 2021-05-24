@@ -1,0 +1,43 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        snums=sorted(nums)
+        print(snums)
+        numset=set()
+        fresult=[]
+        for i in range(len(nums)-1):
+            newnums=snums[i+1:]
+            # print(newnums,(-1)*snums[i])
+            result=self.twoSum(newnums,(-1)*snums[i])
+            
+            if result!=[]:
+                subresult=[]
+                for j in range(len(result)):
+                    result[j].append(snums[i])
+                    result[j]=sorted(result[j])
+                    if tuple(result[j]) not in numset:
+                        numset.add(tuple(result[j]))
+                        subresult.append(result[j])
+                fresult+=subresult
+                
+        return fresult
+    def twoSum(self, nums,twosum):
+        retlst=[]
+        for i in range(len(nums)-1):
+            newnums=nums[i+1:]
+            result=self.bs(newnums,twosum-nums[i])
+            # print(result)
+            if result!=-1:
+                retlst.append([nums[i],result])
+        return retlst
+    def bs(self, nums, target):
+        lst=nums
+        while len(lst)>1:
+            if target>=lst[len(lst)//2]:
+                lst=lst[len(lst)//2:]
+            else:
+                lst=lst[:len(lst)//2]
+        if target!=lst[0]:
+            return -1
+        else:
+            return target
+            
