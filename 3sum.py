@@ -5,6 +5,8 @@ class Solution:
         numset=set()
         fresult=[]
         for i in range(len(nums)-1):
+            if snums[i]>0:
+                break
             newnums=snums[i+1:]
             # print(newnums,(-1)*snums[i])
             result=self.twoSum(newnums,(-1)*snums[i])
@@ -22,22 +24,19 @@ class Solution:
         return fresult
     def twoSum(self, nums,twosum):
         retlst=[]
-        for i in range(len(nums)-1):
-            newnums=nums[i+1:]
-            result=self.bs(newnums,twosum-nums[i])
-            # print(result)
-            if result!=-1:
-                retlst.append([nums[i],result])
+        lo=0
+        hi=len(nums)-1
+        while lo<hi:
+            if nums[lo]+nums[hi]<twosum:
+                lo+=1
+            elif nums[lo]+nums[hi]>twosum:
+                hi-=1
+            elif nums[lo]+nums[hi]==twosum:
+                
+                retlst.append([nums[lo],nums[hi]])
+                lo+=1
+                hi-=1
+
         return retlst
-    def bs(self, nums, target):
-        lst=nums
-        while len(lst)>1:
-            if target>=lst[len(lst)//2]:
-                lst=lst[len(lst)//2:]
-            else:
-                lst=lst[:len(lst)//2]
-        if target!=lst[0]:
-            return -1
-        else:
-            return target
+    
             
