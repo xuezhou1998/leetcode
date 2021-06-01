@@ -1,3 +1,8 @@
+#
+# use a while loop outside and a for loop inside.
+# The most important thing is to avoid modifying the length of an iterable,
+# in which you are currently traversing.
+
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         orglst=[]
